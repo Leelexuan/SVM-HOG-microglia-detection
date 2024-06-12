@@ -3,6 +3,7 @@ Heatmaps/
 **/Processed_training_images/
 **/Source_images/
 **/test_images/
+**/hard_negative_training/
 
 # Files
 *.csv
