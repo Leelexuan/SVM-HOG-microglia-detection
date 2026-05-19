@@ -1,5 +1,4 @@
 # Directories
-notes/
 Heatmaps/
 **/Processed_training_images/
 **/Source_images/
@@ -7,7 +6,6 @@ Heatmaps/
 **/hard_negative_training/
 microglia-detection/
 microglia-artifacts/
-.claude/
 
 # Files
 *.csv
