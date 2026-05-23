@@ -1,0 +1,358 @@
+Input Notebook:  2026/SVM_original_refactored.ipynb
+Output Notebook: 2026/SVM_original_refactored_output.ipynb
+Working directory: 2026
+Executing notebook with kernel: python3
+Executing Cell 1---------------------------------------
+Ending Cell 1------------------------------------------
+Executing Cell 2---------------------------------------
+Ending Cell 2------------------------------------------
+Executing Cell 3---------------------------------------
+Ending Cell 3------------------------------------------
+Executing Cell 4---------------------------------------
+Ending Cell 4------------------------------------------
+Executing Cell 5---------------------------------------
+Config(image_rois_csv='../Image_ROIs.csv', source_images='../Source_images', test_dir='../test_images', microglia_folder='./Processed_training_images/Train/Microglia', noise_folder='./Processed_training_images/Train/Noise', microglia_val_folder='./Processed_training_images/Validate/Microglia', noise_val_folder='./Processed_training_images/Validate/Noise', microglia_test_folder='./Processed_training_images/Test/Microglia', noise_test_folder='./Processed_training_images/Test/Noise', hnm_folder='./Processed_training_images/HardNegatives', features_cache='./microglia-artifacts/features_cache.npz', val_paths_cache='./microglia-artifacts/val_paths.txt', svm_clf_path='./microglia-artifacts/svm_clf.pkl', scaler_path='./microglia-artifacts/scaler.pkl', pca_path='./microglia-artifacts/pca.pkl', hnm_train_final='./microglia-artifacts/hnm_train_final.npz', image_size=2048, window_size=64, color_conv='BGR2HSV', hog_channel='ALL', hog_orient=9, hog_pix_per_cell=8, hog_pix_per_cell_fine=4, hog_cell_per_block=2, spatial_size=(32, 32), hist_bins=32, lbp_radius=2, lbp_n_points=16, lbp_n_bins=32, pca_n_components=4677, val_size=0.2, random_state=42, svm_C=1.0, svm_max_iter=10000, cells_per_step=2, detection_threshold=1.5, scale_factors=(0.75, 1.0, 1.5), nms_iou_thresh=0.3)
+
+Ending Cell 5------------------------------------------
+Executing Cell 6---------------------------------------
+Ending Cell 6------------------------------------------
+Executing Cell 7---------------------------------------
+Ending Cell 7------------------------------------------
+Executing Cell 8---------------------------------------
+Ending Cell 8------------------------------------------
+Executing Cell 9---------------------------------------
+Ending Cell 9------------------------------------------
+Executing Cell 10--------------------------------------
+Ending Cell 10-----------------------------------------
+Executing Cell 11--------------------------------------
+Ending Cell 11-----------------------------------------
+Executing Cell 12--------------------------------------
+Ending Cell 12-----------------------------------------
+Executing Cell 13--------------------------------------
+Ending Cell 13-----------------------------------------
+Executing Cell 14--------------------------------------
+Ending Cell 14-----------------------------------------
+Executing Cell 15--------------------------------------
+Ending Cell 15-----------------------------------------
+Executing Cell 16--------------------------------------
+Ending Cell 16-----------------------------------------
+Executing Cell 17--------------------------------------
+Ending Cell 17-----------------------------------------
+Executing Cell 18--------------------------------------
+Ending Cell 18-----------------------------------------
+Executing Cell 19--------------------------------------
+Ending Cell 19-----------------------------------------
+Executing Cell 20--------------------------------------
+Ending Cell 20-----------------------------------------
+Executing Cell 21--------------------------------------
+Ending Cell 21-----------------------------------------
+Executing Cell 22--------------------------------------
+Ending Cell 22-----------------------------------------
+Executing Cell 23--------------------------------------
+Ending Cell 23-----------------------------------------
+Executing Cell 24--------------------------------------
+Ending Cell 24-----------------------------------------
+Executing Cell 25--------------------------------------
+Ending Cell 25-----------------------------------------
+Executing Cell 26--------------------------------------
+Ending Cell 26-----------------------------------------
+Executing Cell 27--------------------------------------
+val images    : 3
+train samples : 14914  (including 0 hard negatives)
+val samples   : 3036
+
+Ending Cell 27-----------------------------------------
+Executing Cell 28--------------------------------------
+Ending Cell 28-----------------------------------------
+Executing Cell 29--------------------------------------
+Initial fit — scaler + PCA on the base training set...
+
+PCA: 32801 → 4677 components (89.8% variance retained)
+Train: 14914 | Validate: 3036
+
+Tuning detection threshold on validate images...
+Caching candidates (one detection pass per image)...
+
+  8_s37
+
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     29% 
+     39% 
+     48% 
+     58% 
+     68% 
+     78% 
+     88% 
+     97% 
+100%
+
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     29% 
+     38% 
+     48% 
+     58% 
+     67% 
+     77% 
+     87% 
+     96% 
+100%
+
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     28% 
+     38% 
+     47% 
+     57% 
+     67% 
+     76% 
+     86% 
+     95% 
+100%
+    59184 raw candidates, 35 GT boxes
+
+  6_s35
+
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     29% 
+     39% 
+     48% 
+     58% 
+     68% 
+     78% 
+     88% 
+     97% 
+100%
+
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     29% 
+     38% 
+     48% 
+     58% 
+     67% 
+     77% 
+     87% 
+     96% 
+100%
+
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     28% 
+     38% 
+     47% 
+     57% 
+     67% 
+     76% 
+     86% 
+     95% 
+100%
+    59184 raw candidates, 52 GT boxes
+
+  0_s43
+
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     29% 
+     39% 
+     48% 
+     58% 
+     68% 
+     78% 
+     88% 
+     97% 
+100%
+
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     29% 
+     38% 
+     48% 
+     58% 
+     67% 
+     77% 
+     87% 
+     96% 
+100%
+
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     28% 
+     38% 
+     47% 
+     57% 
+     67% 
+     76% 
+     86% 
+     95% 
+100%
+    59184 raw candidates, 66 GT boxes
+Cache built in 860.2s.
+
+Sweeping threshold 0.00 → 13.72 (15 steps)
+
+  t=0.00  P=0.052  R=0.438  F1=0.093
+  t=0.98  P=0.074  R=0.412  F1=0.125
+  t=1.96  P=0.108  R=0.399  F1=0.170
+  t=2.94  P=0.152  R=0.379  F1=0.217
+
+  t=3.92  P=0.235  R=0.359  F1=0.284
+  t=4.90  P=0.287  R=0.281  F1=0.284
+  t=5.88  P=0.314  R=0.209  F1=0.251
+  t=6.86  P=0.403  R=0.176  F1=0.245
+  t=7.84  P=0.488  R=0.131  F1=0.206
+  t=8.82  P=0.650  R=0.085  F1=0.150
+  t=9.80  P=1.000  R=0.046  F1=0.087
+  t=10.78  P=1.000  R=0.026  F1=0.051
+  t=11.76  P=1.000  R=0.013  F1=0.026
+
+  t=12.74  P=1.000  R=0.013  F1=0.026
+  t=13.72  P=1.000  R=0.007  F1=0.013
+
+<Figure size 1000x400 with 1 Axes>
+
+Best threshold: 3.92  P=0.235  R=0.359  F1=0.284
+
+cfg.detection_threshold set to: 3.9200
+
+Ending Cell 29-----------------------------------------
+Executing Cell 30--------------------------------------
+Ending Cell 30-----------------------------------------
+Executing Cell 31--------------------------------------
+── Patch-level evaluation ──
+Extracting test patch features...
+  [test microglia] 0/0 (100%) — 0 feature vectors extracted
+  [test noise] 0/0 (100%) — 0 feature vectors extracted
+
+Ending Cell 31-----------------------------------------
+Traceback (most recent call last):
+  File "/home/ec2-user/lx-svm-venv/bin/papermill", line 7, in <module>
+    sys.exit(papermill())
+             ~~~~~~~~~^^
+  File "/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/click/core.py", line 1524, in __call__
+    return self.main(*args, **kwargs)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/click/core.py", line 1445, in main
+    rv = self.invoke(ctx)
+  File "/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/click/core.py", line 1308, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/click/core.py", line 877, in invoke
+    return callback(*args, **kwargs)
+  File "/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/click/decorators.py", line 34, in new_func
+    return f(get_current_context(), *args, **kwargs)
+  File "/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/papermill/cli.py", line 235, in papermill
+    execute_notebook(
+    ~~~~~~~~~~~~~~~~^
+        input_path=input_path,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ...<15 lines>...
+        execution_timeout=execution_timeout,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/papermill/execute.py", line 131, in execute_notebook
+    raise_for_execution_errors(nb, output_path)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/papermill/execute.py", line 251, in raise_for_execution_errors
+    raise error
+papermill.exceptions.PapermillExecutionError: 
+---------------------------------------------------------------------------
+Exception encountered at "In [16]":
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+Cell In[16], line 16
+     12 test_neg_feats = extract_features(test_neg_paths, cfg, label="test noise")
+     13 
+     14 X_test = np.vstack((test_pos_feats, test_neg_feats)).astype(np.float32)
+     15 y_test = np.hstack((np.ones(len(test_pos_feats)), np.zeros(len(test_neg_feats))))
+---> 16 X_test = scaler.transform(X_test)
+     17 if pca is not None:
+     18     X_test = pca.transform(X_test)
+     19 
+
+File ~/lx-svm-venv/lib/python3.13/site-packages/sklearn/utils/_set_output.py:316, in _wrap_method_output.<locals>.wrapped(self, X, *args, **kwargs)
+    314 @wraps(f)
+    315 def wrapped(self, X, *args, **kwargs):
+--> 316     data_to_wrap = f(self, X, *args, **kwargs)
+    317     if isinstance(data_to_wrap, tuple):
+    318         # only wrap the first output for cross decomposition
+    319         return_tuple = (
+    320             _wrap_data_with_container(method, data_to_wrap[0], X, self),
+    321             *data_to_wrap[1:],
+    322         )
+
+File ~/lx-svm-venv/lib/python3.13/site-packages/sklearn/preprocessing/_data.py:1094, in StandardScaler.transform(self, X, copy)
+   1091 check_is_fitted(self)
+   1093 copy = copy if copy is not None else self.copy
+-> 1094 X = validate_data(
+   1095     self,
+   1096     X,
+   1097     reset=False,
+   1098     accept_sparse="csr",
+   1099     copy=copy,
+   1100     dtype=supported_float_dtypes(xp, X_device),
+   1101     force_writeable=True,
+   1102     ensure_all_finite="allow-nan",
+   1103 )
+   1105 if sparse.issparse(X):
+   1106     if self.with_mean:
+
+File ~/lx-svm-venv/lib/python3.13/site-packages/sklearn/utils/validation.py:2902, in validate_data(_estimator, X, y, reset, validate_separately, skip_check_array, **check_params)
+   2900         out = X, y
+   2901 elif not no_val_X and no_val_y:
+-> 2902     out = check_array(X, input_name="X", **check_params)
+   2903 elif no_val_X and not no_val_y:
+   2904     out = _check_y(y, **check_params)
+
+File ~/lx-svm-venv/lib/python3.13/site-packages/sklearn/utils/validation.py:1106, in check_array(array, accept_sparse, accept_large_sparse, dtype, order, copy, force_writeable, ensure_all_finite, ensure_non_negative, ensure_2d, allow_nd, ensure_min_samples, ensure_min_features, estimator, input_name)
+   1104     n_features = array.shape[1]
+   1105     if n_features < ensure_min_features:
+-> 1106         raise ValueError(
+   1107             "Found array with %d feature(s) (shape=%s) while"
+   1108             " a minimum of %d is required%s."
+   1109             % (n_features, array.shape, ensure_min_features, context)
+   1110         )
+   1112 if ensure_non_negative:
+   1113     whom = input_name
+
+ValueError: Found array with 0 feature(s) (shape=(2, 0)) while a minimum of 1 is required by StandardScaler.
+

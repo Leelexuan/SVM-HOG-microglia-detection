@@ -1,0 +1,994 @@
+Input Notebook:  2026/SVM_original_refactored.ipynb
+Output Notebook: 2026/SVM_original_refactored_output.ipynb
+Working directory: 2026
+Executing notebook with kernel: python3
+Executing Cell 1---------------------------------------
+Ending Cell 1------------------------------------------
+Executing Cell 2---------------------------------------
+Ending Cell 2------------------------------------------
+Executing Cell 3---------------------------------------
+Ending Cell 3------------------------------------------
+Executing Cell 4---------------------------------------
+Ending Cell 4------------------------------------------
+Executing Cell 5---------------------------------------
+Config(image_rois_csv='../Image_ROIs.csv', source_images='../Source_images', test_dir='../test_images', microglia_folder='./Processed_training_images/Train/Microglia', noise_folder='./Processed_training_images/Train/Noise', microglia_val_folder='./Processed_training_images/Validate/Microglia', noise_val_folder='./Processed_training_images/Validate/Noise', microglia_test_folder='./Processed_training_images/Test/Microglia', noise_test_folder='./Processed_training_images/Test/Noise', hnm_folder='./Processed_training_images/HardNegatives', features_cache='./microglia-artifacts/features_cache.npz', val_paths_cache='./microglia-artifacts/val_paths.txt', svm_clf_path='./microglia-artifacts/svm_clf.pkl', scaler_path='./microglia-artifacts/scaler.pkl', pca_path='./microglia-artifacts/pca.pkl', hnm_train_final='./microglia-artifacts/hnm_train_final.npz', image_size=2048, window_size=64, color_conv='BGR2HSV', hog_channel='ALL', hog_orient=9, hog_pix_per_cell=8, hog_pix_per_cell_fine=4, hog_cell_per_block=2, spatial_size=(32, 32), hist_bins=32, lbp_radius=2, lbp_n_points=16, lbp_n_bins=32, pca_n_components=4677, val_size=0.2, random_state=42, svm_C=1.0, svm_max_iter=10000, cells_per_step=2, detection_threshold=1.5, scale_factors=(0.75, 1.0, 1.5), nms_iou_thresh=0.3)
+
+Ending Cell 5------------------------------------------
+Executing Cell 6---------------------------------------
+Ending Cell 6------------------------------------------
+Executing Cell 7---------------------------------------
+Ending Cell 7------------------------------------------
+Executing Cell 8---------------------------------------
+Ending Cell 8------------------------------------------
+Executing Cell 9---------------------------------------
+Ending Cell 9------------------------------------------
+Executing Cell 10--------------------------------------
+Ending Cell 10-----------------------------------------
+Executing Cell 11--------------------------------------
+Ending Cell 11-----------------------------------------
+Executing Cell 12--------------------------------------
+Ending Cell 12-----------------------------------------
+Executing Cell 13--------------------------------------
+Ending Cell 13-----------------------------------------
+Executing Cell 14--------------------------------------
+Ending Cell 14-----------------------------------------
+Executing Cell 15--------------------------------------
+Ending Cell 15-----------------------------------------
+Executing Cell 16--------------------------------------
+Ending Cell 16-----------------------------------------
+Executing Cell 17--------------------------------------
+Ending Cell 17-----------------------------------------
+Executing Cell 18--------------------------------------
+Ending Cell 18-----------------------------------------
+Executing Cell 19--------------------------------------
+Ending Cell 19-----------------------------------------
+Executing Cell 20--------------------------------------
+Ending Cell 20-----------------------------------------
+Executing Cell 21--------------------------------------
+Ending Cell 21-----------------------------------------
+Executing Cell 22--------------------------------------
+Ending Cell 22-----------------------------------------
+Executing Cell 23--------------------------------------
+Ending Cell 23-----------------------------------------
+Executing Cell 24--------------------------------------
+Ending Cell 24-----------------------------------------
+Executing Cell 25--------------------------------------
+Ending Cell 25-----------------------------------------
+Executing Cell 26--------------------------------------
+Ending Cell 26-----------------------------------------
+Executing Cell 27--------------------------------------
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/sklearn/base.py:463: InconsistentVersionWarning: Trying to unpickle estimator LinearSVC from version 1.6.1 when using version 1.8.0. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/sklearn/base.py:463: InconsistentVersionWarning: Trying to unpickle estimator StandardScaler from version 1.6.1 when using version 1.8.0. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+
+val images    : 3
+train samples : 14914  (including 0 hard negatives)
+val samples   : 3036
+
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/sklearn/base.py:463: InconsistentVersionWarning: Trying to unpickle estimator PCA from version 1.6.1 when using version 1.8.0. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+
+Ending Cell 27-----------------------------------------
+Executing Cell 28--------------------------------------
+Initial fit — scaler + PCA on the base training set...
+
+PCA: 32801 → 4677 components (89.8% variance retained)
+Train: 14914 | Validate: 3036
+Fitting 5 folds for each of 6 candidates, totalling 30 fits
+
+
+C        mean-F1  std-F1
+0.001    0.9528   ±0.0047
+0.01     0.9539   ±0.0048
+0.1      0.9539   ±0.0050
+1.0      0.9540   ±0.0046
+10.0     0.9541   ±0.0047 ← best
+100.0    0.9541   ±0.0047
+
+Best params : {'C': 10.0}
+Best CV F1  : 0.9541
+
+Training time : 8.65s
+
+Saved svm_clf / scaler / pca → ./microglia-artifacts/
+
+=======================================================
+  HNM Round 1 / 4
+=======================================================
+  scale=0.75 (1536×1536px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     29% 
+     39% 
+     48% 
+     58% 
+     68% 
+     78% 
+     88% 
+     97% 
+100%
+  → 1626 candidates at this scale
+  scale=1.00 (2048×2048px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     29% 
+     38% 
+     48% 
+     58% 
+     67% 
+     77% 
+     87% 
+     96% 
+100%
+  → 815 candidates at this scale
+  scale=1.50 (3072×3072px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     28% 
+     38% 
+     47% 
+     57% 
+     67% 
+     76% 
+     86% 
+     95% 
+100%
+  → 16545 candidates at this scale
+
+  Total candidates : 18986
+
+  After NMS        : 3577
+
+  8_s37: 3577 detections → 3556 new hard negatives this round
+  scale=0.75 (1536×1536px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     29% 
+     39% 
+     48% 
+     58% 
+     68% 
+     78% 
+     88% 
+     97% 
+100%
+  → 2208 candidates at this scale
+  scale=1.00 (2048×2048px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     29% 
+     38% 
+     48% 
+     58% 
+     67% 
+     77% 
+     87% 
+     96% 
+100%
+  → 1384 candidates at this scale
+  scale=1.50 (3072×3072px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     28% 
+     38% 
+     47% 
+     57% 
+     67% 
+     76% 
+     86% 
+     95% 
+100%
+  → 17918 candidates at this scale
+
+  Total candidates : 21510
+
+  After NMS        : 3808
+
+  6_s35: 3808 detections → 7331 new hard negatives this round
+  scale=0.75 (1536×1536px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     29% 
+     39% 
+     48% 
+     58% 
+     68% 
+     78% 
+     88% 
+     97% 
+100%
+  → 2551 candidates at this scale
+  scale=1.00 (2048×2048px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     29% 
+     38% 
+     48% 
+     58% 
+     67% 
+     77% 
+     87% 
+     96% 
+100%
+  → 1995 candidates at this scale
+  scale=1.50 (3072×3072px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     28% 
+     38% 
+     47% 
+     57% 
+     67% 
+     76% 
+     86% 
+     95% 
+100%
+  → 19900 candidates at this scale
+
+  Total candidates : 24446
+
+  After NMS        : 4221
+
+  0_s43: 4221 detections → 11508 new hard negatives this round
+
+  New hard negatives this round: 11508
+Extracting features for new hard negatives only...
+  [hard negatives] 0/11508 (  0%)
+  [hard negatives] 1150/11508 (  9%)
+  [hard negatives] 2300/11508 ( 19%)
+  [hard negatives] 3450/11508 ( 29%)
+  [hard negatives] 4600/11508 ( 39%)
+  [hard negatives] 5750/11508 ( 49%)
+  [hard negatives] 6900/11508 ( 59%)
+  [hard negatives] 8050/11508 ( 69%)
+  [hard negatives] 9200/11508 ( 79%)
+  [hard negatives] 10350/11508 ( 89%)
+  [hard negatives] 11500/11508 ( 99%)
+  [hard negatives] 11508/11508 (100%) — 11508 feature vectors extracted
+
+Retraining SVM on 26422 samples (11508 hard negatives), fixed C=10.0...
+
+Training time : 36.62s
+
+Validate patch-level metrics after round:
+Accuracy  : 0.9213
+Precision : 0.3757
+Recall    : 0.8497
+F1-Score  : 0.5210
+
+=======================================================
+  HNM Round 2 / 4
+=======================================================
+  scale=0.75 (1536×1536px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     29% 
+     39% 
+     48% 
+     58% 
+     68% 
+     78% 
+     88% 
+     97% 
+100%
+  → 47 candidates at this scale
+  scale=1.00 (2048×2048px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     29% 
+     38% 
+     48% 
+     58% 
+     67% 
+     77% 
+     87% 
+     96% 
+100%
+  → 169 candidates at this scale
+  scale=1.50 (3072×3072px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     28% 
+     38% 
+     47% 
+     57% 
+     67% 
+     76% 
+     86% 
+     95% 
+100%
+  → 75 candidates at this scale
+
+  Total candidates : 291
+  After NMS        : 130
+  8_s37: 130 detections → 119 new hard negatives this round
+
+  scale=0.75 (1536×1536px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     29% 
+     39% 
+     48% 
+     58% 
+     68% 
+     78% 
+     88% 
+     97% 
+100%
+  → 74 candidates at this scale
+  scale=1.00 (2048×2048px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     29% 
+     38% 
+     48% 
+     58% 
+     67% 
+     77% 
+     87% 
+     96% 
+100%
+  → 248 candidates at this scale
+  scale=1.50 (3072×3072px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     28% 
+     38% 
+     47% 
+     57% 
+     67% 
+     76% 
+     86% 
+     95% 
+100%
+  → 117 candidates at this scale
+
+  Total candidates : 439
+  After NMS        : 157
+  6_s35: 157 detections → 258 new hard negatives this round
+
+  scale=0.75 (1536×1536px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     29% 
+     39% 
+     48% 
+     58% 
+     68% 
+     78% 
+     88% 
+     97% 
+100%
+  → 178 candidates at this scale
+  scale=1.00 (2048×2048px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     29% 
+     38% 
+     48% 
+     58% 
+     67% 
+     77% 
+     87% 
+     96% 
+100%
+  → 788 candidates at this scale
+  scale=1.50 (3072×3072px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     28% 
+     38% 
+     47% 
+     57% 
+     67% 
+     76% 
+     86% 
+     95% 
+100%
+  → 352 candidates at this scale
+
+  Total candidates : 1318
+  After NMS        : 356
+
+  0_s43: 356 detections → 581 new hard negatives this round
+
+  New hard negatives this round: 581
+Extracting features for new hard negatives only...
+  [hard negatives] 0/581 (  0%)
+  [hard negatives] 58/581 (  9%)
+  [hard negatives] 116/581 ( 19%)
+  [hard negatives] 174/581 ( 29%)
+  [hard negatives] 232/581 ( 39%)
+  [hard negatives] 290/581 ( 49%)
+  [hard negatives] 348/581 ( 59%)
+  [hard negatives] 406/581 ( 69%)
+  [hard negatives] 464/581 ( 79%)
+  [hard negatives] 522/581 ( 89%)
+  [hard negatives] 580/581 ( 99%)
+  [hard negatives] 581/581 (100%) — 581 feature vectors extracted
+
+Retraining SVM on 27003 samples (12089 hard negatives), fixed C=10.0...
+
+Training time : 96.61s
+
+Validate patch-level metrics after round:
+Accuracy  : 0.9246
+Precision : 0.3812
+Recall    : 0.7974
+F1-Score  : 0.5159
+
+=======================================================
+  HNM Round 3 / 4
+=======================================================
+
+  scale=0.75 (1536×1536px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     29% 
+     39% 
+     48% 
+     58% 
+     68% 
+     78% 
+     88% 
+     97% 
+100%
+  → 68 candidates at this scale
+  scale=1.00 (2048×2048px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     29% 
+     38% 
+     48% 
+     58% 
+     67% 
+     77% 
+     87% 
+     96% 
+100%
+  → 249 candidates at this scale
+  scale=1.50 (3072×3072px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     28% 
+     38% 
+     47% 
+     57% 
+     67% 
+     76% 
+     86% 
+     95% 
+100%
+  → 83 candidates at this scale
+
+  Total candidates : 400
+  After NMS        : 180
+
+  8_s37: 180 detections → 165 new hard negatives this round
+  scale=0.75 (1536×1536px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     29% 
+     39% 
+     48% 
+     58% 
+     68% 
+     78% 
+     88% 
+     97% 
+100%
+  → 103 candidates at this scale
+  scale=1.00 (2048×2048px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     29% 
+     38% 
+     48% 
+     58% 
+     67% 
+     77% 
+     87% 
+     96% 
+100%
+  → 296 candidates at this scale
+  scale=1.50 (3072×3072px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     28% 
+     38% 
+     47% 
+     57% 
+     67% 
+     76% 
+     86% 
+     95% 
+100%
+  → 123 candidates at this scale
+
+  Total candidates : 522
+  After NMS        : 208
+
+  6_s35: 208 detections → 354 new hard negatives this round
+  scale=0.75 (1536×1536px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     29% 
+     39% 
+     48% 
+     58% 
+     68% 
+     78% 
+     88% 
+     97% 
+100%
+  → 195 candidates at this scale
+  scale=1.00 (2048×2048px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     29% 
+     38% 
+     48% 
+     58% 
+     67% 
+     77% 
+     87% 
+     96% 
+100%
+  → 890 candidates at this scale
+  scale=1.50 (3072×3072px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     28% 
+     38% 
+     47% 
+     57% 
+     67% 
+     76% 
+     86% 
+     95% 
+100%
+  → 331 candidates at this scale
+
+  Total candidates : 1416
+  After NMS        : 437
+
+  0_s43: 437 detections → 753 new hard negatives this round
+
+  New hard negatives this round: 753
+Extracting features for new hard negatives only...
+  [hard negatives] 0/753 (  0%)
+  [hard negatives] 75/753 (  9%)
+  [hard negatives] 150/753 ( 19%)
+  [hard negatives] 225/753 ( 29%)
+  [hard negatives] 300/753 ( 39%)
+  [hard negatives] 375/753 ( 49%)
+  [hard negatives] 450/753 ( 59%)
+  [hard negatives] 525/753 ( 69%)
+  [hard negatives] 600/753 ( 79%)
+  [hard negatives] 675/753 ( 89%)
+  [hard negatives] 750/753 ( 99%)
+  [hard negatives] 753/753 (100%) — 753 feature vectors extracted
+
+Retraining SVM on 27756 samples (12842 hard negatives), fixed C=10.0...
+
+Training time : 140.29s
+
+Validate patch-level metrics after round:
+Accuracy  : 0.9233
+Precision : 0.3758
+Recall    : 0.7908
+F1-Score  : 0.5095
+
+=======================================================
+  HNM Round 4 / 4
+=======================================================
+
+  scale=0.75 (1536×1536px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     29% 
+     39% 
+     48% 
+     58% 
+     68% 
+     78% 
+     88% 
+     97% 
+100%
+  → 82 candidates at this scale
+  scale=1.00 (2048×2048px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     29% 
+     38% 
+     48% 
+     58% 
+     67% 
+     77% 
+     87% 
+     96% 
+100%
+  → 238 candidates at this scale
+  scale=1.50 (3072×3072px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     28% 
+     38% 
+     47% 
+     57% 
+     67% 
+     76% 
+     86% 
+     95% 
+100%
+  → 70 candidates at this scale
+
+  Total candidates : 390
+  After NMS        : 201
+
+  8_s37: 201 detections → 187 new hard negatives this round
+  scale=0.75 (1536×1536px)  
+                                 /home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     29% 
+     39% 
+     48% 
+     58% 
+     68% 
+     78% 
+     88% 
+     97% 
+100%
+  → 99 candidates at this scale
+  scale=1.00 (2048×2048px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     29% 
+     38% 
+     48% 
+     58% 
+     67% 
+     77% 
+     87% 
+     96% 
+100%
+  → 290 candidates at this scale
+  scale=1.50 (3072×3072px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     28% 
+     38% 
+     47% 
+     57% 
+     67% 
+     76% 
+     86% 
+     95% 
+100%
+  → 117 candidates at this scale
+
+  Total candidates : 506
+  After NMS        : 235
+
+  6_s35: 235 detections → 405 new hard negatives this round
+  scale=0.75 (1536×1536px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     29% 
+     39% 
+     48% 
+     58% 
+     68% 
+     78% 
+     88% 
+     97% 
+100%
+  → 171 candidates at this scale
+  scale=1.00 (2048×2048px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     29% 
+     38% 
+     48% 
+     58% 
+     67% 
+     77% 
+     87% 
+     96% 
+100%
+  → 868 candidates at this scale
+  scale=1.50 (3072×3072px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     28% 
+     38% 
+     47% 
+     57% 
+     67% 
+     76% 
+     86% 
+     95% 
+100%
+  → 278 candidates at this scale
+
+  Total candidates : 1317
+  After NMS        : 442
+  0_s43: 442 detections → 809 new hard negatives this round
+
+  New hard negatives this round: 809
+Extracting features for new hard negatives only...
+  [hard negatives] 0/809 (  0%)
+  [hard negatives] 80/809 (  9%)
+  [hard negatives] 160/809 ( 19%)
+  [hard negatives] 240/809 ( 29%)
+  [hard negatives] 320/809 ( 39%)
+  [hard negatives] 400/809 ( 49%)
+  [hard negatives] 480/809 ( 59%)
+  [hard negatives] 560/809 ( 69%)
+  [hard negatives] 640/809 ( 79%)
+  [hard negatives] 720/809 ( 88%)
+  [hard negatives] 800/809 ( 98%)
+  [hard negatives] 809/809 (100%) — 809 feature vectors extracted
+
+Retraining SVM on 28565 samples (13651 hard negatives), fixed C=10.0...
+
+           Training time : 192.47s
+
+Validate patch-level metrics after round:
+Accuracy  : 0.9229
+Precision : 0.3714
+Recall    : 0.7647
+F1-Score  : 0.5000
+
+HNM complete.
+
+Final training set saved → ./microglia-artifacts/hnm_train_final.npz  (X_train (28565, 4677), y_train (28565,))
+
+Tuning detection threshold on validate images...
+Sweeping threshold 0.00 → 13.72 (15 steps)
+  scale=0.75 (1536×1536px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     29% 
+     39% 
+     48% 
+     58% 
+     68% 
+     78% 
+     88% 
+     97% 
+100%
+  → 146 candidates at this scale
+  scale=1.00 (2048×2048px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     29% 
+     38% 
+     48% 
+     58% 
+     67% 
+     77% 
+     87% 
+     96% 
+100%
+  → 395 candidates at this scale
+  scale=1.50 (3072×3072px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     28% 
+     38% 
+     47% 
+     57% 
+     67% 
+     76% 
+     86% 
+     95% 
+100%
+  → 97 candidates at this scale
+
+  Total candidates : 638
+  After NMS        : 327
+
+  scale=0.75 (1536×1536px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     29% 
+     39% 
+     48% 
+     58% 
+     68% 
+     78% 
+     88% 
+     97% 
+100%
+  → 129 candidates at this scale
+  scale=1.00 (2048×2048px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     29% 
+     38% 
+     48% 
+     58% 
+     67% 
+     77% 
+     87% 
+     96% 
+100%
+  → 519 candidates at this scale
+  scale=1.50 (3072×3072px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     28% 
+     38% 
