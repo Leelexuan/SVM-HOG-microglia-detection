@@ -1,0 +1,184 @@
+Input Notebook:  2026/ablation_4_hnm.ipynb
+Output Notebook: 2026/ablation_4_hnm_output.ipynb
+Working directory: 2026
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/nbformat/__init__.py:96: MissingIDFieldWarning: Cell is missing an id field, this will become a hard error in future nbformat versions. You may want to use `normalize()` on your notebooks before validations (available since nbformat 5.1.4). Previous versions of nbformat are fixing this issue transparently, and will stop doing so in the future.
+  validate(nb)
+Executing notebook with kernel: python3
+Executing Cell 1---------------------------------------
+Ending Cell 1------------------------------------------
+Executing Cell 2---------------------------------------
+Ending Cell 2------------------------------------------
+Executing Cell 3---------------------------------------
+Ending Cell 3------------------------------------------
+Executing Cell 4---------------------------------------
+Config(image_rois_csv='../Image_ROIs.csv', source_images='../Source_images', test_dir='../test_images', microglia_folder='./Processed_training_images/Train/Microglia', noise_folder='./Processed_training_images/Train/Noise', microglia_val_folder='./Processed_training_images/Validate/Microglia', noise_val_folder='./Processed_training_images/Validate/Noise', microglia_test_folder='./Processed_training_images/Test/Microglia', noise_test_folder='./Processed_training_images/Test/Noise', hnm_folder='./Processed_training_images/HardNegatives', artifact_dir='./microglia-artifacts-row4', features_cache='./microglia-artifacts-row4/features_cache.npz', svm_clf_path='./microglia-artifacts-row4/svm_clf.pkl', scaler_path='./microglia-artifacts-row4/scaler.pkl', pca_path='./microglia-artifacts-row4/pca.pkl', val_paths_cache='./microglia-artifacts-row4/val_paths.txt', hnm_train_final='./microglia-artifacts-row4/hnm_train_final.npz', image_size=2048, window_size=64, feature_mode='full', scale_factors=(0.75, 1.0, 1.5), color_conv='BGR2HSV', hog_channel='ALL', hog_orient=9, hog_pix_per_cell=8, hog_pix_per_cell_fine=4, hog_cell_per_block=2, spatial_size=(32, 32), hist_bins=32, lbp_radius=2, lbp_n_points=16, lbp_n_bins=32, pca_n_components=4677, val_size=0.2, random_state=42, svm_C=1.0, svm_max_iter=10000, cells_per_step=2, detection_threshold=1.5, nms_iou_thresh=0.3)
+
+Ending Cell 4------------------------------------------
+Executing Cell 5---------------------------------------
+Ending Cell 5------------------------------------------
+Executing Cell 6---------------------------------------
+Loaded HNM-trained model from ./microglia-artifacts-row4/
+  svm_clf : C=10.0, coef shape=(1, 4677), n_iter=182
+  scaler  : n_features_in_=32801
+  pca     : n_components_=4677, variance_retained=89.8%
+
+Ending Cell 6------------------------------------------
+Executing Cell 7---------------------------------------
+Ending Cell 7------------------------------------------
+Executing Cell 8---------------------------------------
+── Patch-level test ──
+  [test microglia] 0/245 (  0%)
+  [test microglia] 24/245 (  9%)
+  [test microglia] 48/245 ( 19%)
+  [test microglia] 72/245 ( 29%)
+  [test microglia] 96/245 ( 39%)
+  [test microglia] 120/245 ( 48%)
+  [test microglia] 144/245 ( 58%)
+  [test microglia] 168/245 ( 68%)
+  [test microglia] 192/245 ( 78%)
+  [test microglia] 216/245 ( 88%)
+  [test microglia] 240/245 ( 97%)
+  [test microglia] 245/245 (100%) — 245 feature vectors extracted
+  [test noise] 0/1922 (  0%)
+  [test noise] 192/1922 (  9%)
+  [test noise] 384/1922 ( 19%)
+  [test noise] 576/1922 ( 29%)
+  [test noise] 768/1922 ( 39%)
+  [test noise] 960/1922 ( 49%)
+  [test noise] 1152/1922 ( 59%)
+  [test noise] 1344/1922 ( 69%)
+  [test noise] 1536/1922 ( 79%)
+  [test noise] 1728/1922 ( 89%)
+  [test noise] 1920/1922 ( 99%)
+  [test noise] 1922/1922 (100%) — 1922 feature vectors extracted
+
+[test] Accuracy  : 0.9192
+[test] Precision : 0.9487
+[test] Recall    : 0.3020
+[test] F1-Score  : 0.4582
+
+── Detection-level test (multi-scale, untuned t=1.50) ──
+Running detection on 2 test images at scales (0.75, 1.0, 1.5), threshold=1.50
+
+── 13_s46 ──
+  scale=0.75 (1536×1536px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     29% 
+     39% 
+     48% 
+     58% 
+     68% 
+     78% 
+     88% 
+     97% 
+100%
+  → 100 candidates at this scale
+  scale=1.00 (2048×2048px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     29% 
+     38% 
+     48% 
+     58% 
+     67% 
+     77% 
+     87% 
+     96% 
+100%
+  → 167 candidates at this scale
+  scale=1.50 (3072×3072px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     28% 
+     38% 
+     47% 
+     57% 
+     67% 
+     76% 
+     86% 
+     95% 
+100%
+  → 165 candidates at this scale
+  Total candidates : 432
+  After NMS        : 182
+  Detection time: 244.6s
+  GT=123  Pred=182  TP=34  FP=148  FN=89  P=0.187  R=0.276
+
+<Figure size 1600x700 with 2 Axes>
+
+── 14_s47 ──
+  scale=0.75 (1536×1536px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     29% 
+     39% 
+     48% 
+     58% 
+     68% 
+     78% 
+     88% 
+     97% 
+100%
+  → 140 candidates at this scale
+  scale=1.00 (2048×2048px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     29% 
+     38% 
+     48% 
+     58% 
+     67% 
+     77% 
+     87% 
+     96% 
+100%
+  → 190 candidates at this scale
+  scale=1.50 (3072×3072px)  
+/home/ec2-user/lx-svm-venv/lib/python3.13/site-packages/skimage/feature/texture.py:385: UserWarning: Applying `local_binary_pattern` to floating-point images may give unexpected results when small numerical differences between adjacent pixels are present. It is recommended to use this function with images of integer dtype.
+  warnings.warn(
+
+      0% 
+      9% 
+     19% 
+     28% 
+     38% 
+     47% 
+     57% 
+     67% 
+     76% 
+     86% 
+     95% 
+100%
+  → 205 candidates at this scale
+  Total candidates : 535
+  After NMS        : 219
+  Detection time: 241.3s
+  GT=122  Pred=219  TP=37  FP=182  FN=85  P=0.169  R=0.303
+
+<Figure size 1600x700 with 2 Axes>
+
+== AGGREGATE  TP=71  FP=330  FN=174
+   Precision=0.177  Recall=0.290  F1=0.220
+
+Ending Cell 8------------------------------------------
